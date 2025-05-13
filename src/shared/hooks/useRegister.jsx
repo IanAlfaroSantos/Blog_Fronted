@@ -33,7 +33,7 @@ export const useRegister = () => {
             icon: 'success',
             title: 'Registro exitoso',
             text: 'Usuario registrado exitosamente!!',
-            timer: 2000,
+            timer: 3000,
             showConfirmButton: false
         });
 

@@ -8,6 +8,7 @@ import {
 } from '../shared/validators';
 import { useLogin } from "../shared/hooks";
 import { FaUserTie } from "react-icons/fa";
+import videoLogin from "../assets/vid/FondoLogin.mp4";
 import "../index.css";
 
 export const Login = ({ switchAuthHandler }) => {
@@ -71,8 +72,13 @@ export const Login = ({ switchAuthHandler }) => {
 
     return (
         <div className="login-container">
-            <FaUserTie text={'User Register'}/>
+            <div className="video-background">
+                <video autoPlay loop muted playsInline>
+                    <source src={videoLogin} type="video/mp4" />
+                </video>
+            </div>
             <form className="auth-form">
+                <img className="img1" text={'User Register'} />
                 <Input
                     field='usernameOrEmail'
                     label='Email or Username'
@@ -83,6 +89,7 @@ export const Login = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.usernameOrEmail.showError}
                     validationMessage={validateUsernameOrEmailMessage}
                 />
+                <br />
                 <Input
                     field='password'
                     label='Password'
@@ -93,6 +100,7 @@ export const Login = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.password.showError}
                     validationMessage={validatePasswordMessage}
                 />
+                <br />
                 <button onClick={handleLogin} disabled={isSubmitButtonDisable}>
                     Log in
                 </button>

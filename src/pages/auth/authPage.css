@@ -6,11 +6,11 @@
     align-items: center;
 }
 
-.login-container, .register-container {
-    background-color: rgba(255, 255, 255, 0.8);
+.login-container {
+    background: rgb(255, 255, 255, 0.4);
     width: 500px;
     margin: 0 auto;
-    border: 1px solid #ffffff;
+    border: 50px solid transparent;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -33,15 +33,25 @@
     justify-content: center;
 }
 
-.auth-form input {
-    margin: 5px 0;
-    padding: 5px;
-    width: 400px;
+.auth-form .auth-form-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.auth-form input,
+.auth-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .auth-form button {
     cursor: pointer;
-    background-color: #0b336b; /* Twitch Purple */
+    background-color: #0b336b;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -62,7 +72,7 @@
 }
 
 .auth-form-label {
-    width: 410px;
+    width: 100%;
     font-weight: 500;
 }
 
@@ -85,6 +95,32 @@
 }
 
 .auth-form-validation-message {
-    width: 400px;
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+    width: 100%;
     color: red;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.auth-form-field.error .auth-form-validation-message {
+    visibility: visible;
+    opacity: 1;
+}
+
+.auth-form-field input,
+.auth-form-field textarea {
+    width: 100%;
+}
+
+.auth-form-field.error input,
+.auth-form-field.error textarea {
+    border-color: red;
+}
+
+.img1 {
+    src: "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
 }

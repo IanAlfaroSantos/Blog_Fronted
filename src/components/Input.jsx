@@ -18,13 +18,13 @@ export const Input = ({
     }
 
     return (
-        <>
+        <div className={`auth-form-field ${showErrorMessage ? 'error' : ''}`}>
             <div className="auth-form-label">
                 <span>{label}</span>
             </div>
             <div>
                 {textArea ? (
-                    <textArea
+                    <textarea
                         type={type}
                         value={value}
                         onChange={handleValueChange}
@@ -38,12 +38,15 @@ export const Input = ({
                         value={value}
                         onChange={handleValueChange}
                         onBlur={handleInputBlur}
+                        style={{ maxWidth: '400px' }}
                     />
                 )}
-                <span className="auth-form-validation-message">
-                    {showErrorMessage && validationMessage}
-                </span>
+                {showErrorMessage && (
+                    <span className="auth-form-validation-message">
+                        {validationMessage}
+                    </span>
+                )}
             </div>
-        </>
-    )
+        </div>
+    );
 }

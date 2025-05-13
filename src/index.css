@@ -47,9 +47,11 @@ code {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #0b336b;
   }
+
   button {
     background-color: #f9f9f9;
   }

@@ -24,7 +24,7 @@ export const useUserDetails = () => {
                 icon: 'success',
                 title: 'Cierre de Sesión',
                 text: 'Sesion cerrada exitosamente!!',
-                timer: 4000,
+                timer: 3000,
                 showConfirmButton: false
             })
             localStorage.removeItem('mostrar-mensaje');

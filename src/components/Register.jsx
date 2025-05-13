@@ -18,13 +18,14 @@ import {
 } from '../shared/validators';
 import { useRegister } from '../shared/hooks';
 import { FaUserTie } from "react-icons/fa";
+import videoRegister from "../assets/vid/FondoRegister.mp4";
 import '../index.css';
 
 export const Register = ({ switchAuthHandler }) => {
 
     const { register, isLoading } = useRegister();
 
-    const [ formState, setFormState ] = useState({
+    const [formState, setFormState] = useState({
         name: {
             value: '',
             isValid: false,
@@ -99,7 +100,7 @@ export const Register = ({ switchAuthHandler }) => {
             default:
                 break;
         }
-        
+
         setFormState((prevState) => ({
             ...prevState,
             [field]: {
@@ -133,8 +134,14 @@ export const Register = ({ switchAuthHandler }) => {
 
     return (
         <div className="login-container">
-            <FaUserTie text={'User Register'}/>
+            <div className="video-background">
+                <video autoPlay loop muted playsInline>
+                    <source src={videoRegister} type="video/mp4" />
+                </video>
+            </div>
+            <FaUserTie text={'User Register'} />
             <form className="auth-form">
+                <br />
                 <Input
                     field='name'
                     label='Name'
@@ -145,6 +152,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.name.showError}
                     validationMessage={validateNameMessage}
                 />
+                <br />
                 <Input
                     field='surname'
                     label='Surname'
@@ -155,6 +163,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.surname.showError}
                     validationMessage={validateSurnameMessage}
                 />
+                <br />
                 <Input
                     field='username'
                     label='Username'
@@ -165,6 +174,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.username.showError}
                     validationMessage={validateUsernameMessage}
                 />
+                <br />
                 <Input
                     field='email'
                     label='Email'
@@ -175,6 +185,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.email.showError}
                     validationMessage={validateEmailMessage}
                 />
+                <br />
                 <Input
                     field='phone'
                     label='Phone'
@@ -185,6 +196,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.phone.showError}
                     validationMessage={validatePhoneMessage}
                 />
+                <br />
                 <Input
                     field='password'
                     label='Password'
@@ -195,6 +207,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.password.showError}
                     validationMessage={validatePasswordMessage}
                 />
+                <br />
                 <Input
                     field='passwordConfir'
                     label='Password Confirmation'
@@ -205,6 +218,7 @@ export const Register = ({ switchAuthHandler }) => {
                     showErrorMessage={formState.passwordConfir.showError}
                     validationMessage={validateConfirPasswordMessage}
                 />
+                <br />
                 <button onClick={handleRegister} disabled={isSubmitButtonDisable}>
                     Register
                 </button>

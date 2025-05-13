@@ -37,7 +37,7 @@ export const useLogin = () => {
             icon: 'success',
             title: 'Inicio exitoso',
             text: 'Inicio de sesión exitosamente!!',
-            timer: 4000,
+            timer: 3000,
             showConfirmButton: false
         });
 
