@@ -1,7 +1,8 @@
 export const validateUsername = (username) => {
     if (!username.trim()) {
         return {
-            isValid: true
+            isValid: false,
+            message: 'Username is required'
         }
     }
     
