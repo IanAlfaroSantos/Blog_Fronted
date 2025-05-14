@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Input } from './Input';
+import { Input } from '../Input';
 import {
     validateUsernameOrEmail,
-    validatePassword,
-    validateUsernameOrEmailMessage,
-    validatePasswordMessage
-} from '../shared/validators';
-import { useLogin } from "../shared/hooks";
+    validatePassword
+} from '../../shared/validators';
+import { useLogin } from "../../shared/hooks";
 import { FaUserTie } from "react-icons/fa";
-import videoLogin from "../assets/vid/FondoLogin.mp4";
-import "../index.css";
+import videoLogin from "../../assets/vid/FondoLogin.mp4";
+import "../../index.css";
 
 export const Login = ({ switchAuthHandler }) => {
 
@@ -19,12 +17,14 @@ export const Login = ({ switchAuthHandler }) => {
         usernameOrEmail: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         password: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         }
     });
 
@@ -39,13 +39,13 @@ export const Login = ({ switchAuthHandler }) => {
     }
 
     const handleInputValidationOnBlur = (value, field) => {
-        let isValid = false;
+        let result = { isValid: false, message: '' };
         switch (field) {
             case 'usernameOrEmail':
-                isValid = validateUsernameOrEmail(value);
+                result = validateUsernameOrEmail(value);
                 break;
             case 'password':
-                isValid = validatePassword(value);
+                result = validatePassword(value);
                 break;
             default:
                 break;
@@ -55,8 +55,9 @@ export const Login = ({ switchAuthHandler }) => {
             ...prevState,
             [field]: {
                 ...prevState[field],
-                isValid,
-                showError: !isValid
+                isValid: result.isValid,
+                showError: !result.isValid,
+                validationMessage: result.message
             }
         }));
     }
@@ -78,7 +79,7 @@ export const Login = ({ switchAuthHandler }) => {
                 </video>
             </div>
             <form className="auth-form">
-                <img className="img1" text={'User Register'} />
+                <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
                 <Input
                     field='usernameOrEmail'
                     label='Email or Username'
@@ -87,7 +88,7 @@ export const Login = ({ switchAuthHandler }) => {
                     type='text'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.usernameOrEmail.showError}
-                    validationMessage={validateUsernameOrEmailMessage}
+                    validationMessage={formState.usernameOrEmail.validationMessage}
                 />
                 <br />
                 <Input
@@ -98,7 +99,7 @@ export const Login = ({ switchAuthHandler }) => {
                     type='password'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.password.showError}
-                    validationMessage={validatePasswordMessage}
+                    validationMessage={formState.password.validationMessage}
                 />
                 <br />
                 <button onClick={handleLogin} disabled={isSubmitButtonDisable}>

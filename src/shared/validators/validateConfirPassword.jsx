@@ -1,5 +1,17 @@
 export const validateConfirPassword = (pass, confPass) => {
-    return pass === confPass;
-}
+    if (!confPass) {
+        return {
+            isValid: false,
+            message: 'Confirmation password is required'
+        }
+    }
 
-export const validateConfirPasswordMessage = 'Las contraseñas no coinciden';
+    if (pass !== confPass) {
+        return {
+            isValid: false,
+            message: 'Las contraseñas no coinciden'
+        }
+    }
+
+    return { isValid: true, message: '' };
+}

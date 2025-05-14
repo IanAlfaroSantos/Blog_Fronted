@@ -42,3 +42,25 @@ export const register = async (data) => {
         }
     }
 }
+
+export const getUserById = async () => {
+    try {
+        return await apiClient.get('users/search');
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateUser = async (data) => {
+    try {
+        return await apiClient.put('users/', data);
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}

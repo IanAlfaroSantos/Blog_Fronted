@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input } from './Input';
+import { Input } from '../Input';
 import {
     validateName,
     validateSurname,
@@ -7,19 +7,12 @@ import {
     validateEmail,
     validatePhone,
     validatePassword,
-    validateConfirPassword,
-    validateNameMessage,
-    validateSurnameMessage,
-    validateUsernameMessage,
-    validateEmailMessage,
-    validatePhoneMessage,
-    validatePasswordMessage,
-    validateConfirPasswordMessage
-} from '../shared/validators';
-import { useRegister } from '../shared/hooks';
+    validateConfirPassword
+} from '../../shared/validators';
+import { useRegister } from '../../shared/hooks';
 import { FaUserTie } from "react-icons/fa";
-import videoRegister from "../assets/vid/FondoRegister.mp4";
-import '../index.css';
+import videoRegister from "../../assets/vid/FondoRegister.mp4";
+import '../../index.css';
 
 export const Register = ({ switchAuthHandler }) => {
 
@@ -29,37 +22,44 @@ export const Register = ({ switchAuthHandler }) => {
         name: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         surname: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         email: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         username: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         phone: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         password: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         },
         passwordConfir: {
             value: '',
             isValid: false,
-            showError: false
+            showError: false,
+            validationMessage: ''
         }
     });
 
@@ -74,28 +74,28 @@ export const Register = ({ switchAuthHandler }) => {
     }
 
     const handleInputValidationOnBlur = (value, field) => {
-        let isValid = false;
+        let result = { isValid: false, message: '' };
         switch (field) {
             case 'name':
-                isValid = validateName(value);
+                result = validateName(value);
                 break;
             case 'surname':
-                isValid = validateSurname(value);
+                result = validateSurname(value);
                 break;
             case 'username':
-                isValid = validateUsername(value);
+                result = validateUsername(value);
                 break;
             case 'email':
-                isValid = validateEmail(value);
+                result = validateEmail(value);
                 break;
             case 'phone':
-                isValid = validatePhone(value);
+                result = validatePhone(value);
                 break;
             case 'password':
-                isValid = validatePassword(value);
+                result = validatePassword(value);
                 break;
             case 'passwordConfir':
-                isValid = validateConfirPassword(formState.password.value, value);
+                result = validateConfirPassword(formState.password.value, value);
                 break;
             default:
                 break;
@@ -105,8 +105,9 @@ export const Register = ({ switchAuthHandler }) => {
             ...prevState,
             [field]: {
                 ...prevState[field],
-                isValid,
-                showError: !isValid
+                isValid: result.isValid,
+                showError: !result.isValid,
+                validationMessage: result.message
             }
         }));
     }
@@ -133,13 +134,13 @@ export const Register = ({ switchAuthHandler }) => {
         !formState.passwordConfir.isValid;
 
     return (
-        <div className="login-container">
+        <div className="register-container">
             <div className="video-background">
                 <video autoPlay loop muted playsInline>
                     <source src={videoRegister} type="video/mp4" />
                 </video>
             </div>
-            <FaUserTie text={'User Register'} />
+            <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
             <form className="auth-form">
                 <br />
                 <Input
@@ -150,7 +151,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='text'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.name.showError}
-                    validationMessage={validateNameMessage}
+                    validationMessage={formState.name.validationMessage}
                 />
                 <br />
                 <Input
@@ -161,7 +162,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='text'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.surname.showError}
-                    validationMessage={validateSurnameMessage}
+                    validationMessage={formState.surname.validationMessage}
                 />
                 <br />
                 <Input
@@ -172,7 +173,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='text'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.username.showError}
-                    validationMessage={validateUsernameMessage}
+                    validationMessage={formState.username.validationMessage}
                 />
                 <br />
                 <Input
@@ -183,7 +184,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='email'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.email.showError}
-                    validationMessage={validateEmailMessage}
+                    validationMessage={formState.email.validationMessage}
                 />
                 <br />
                 <Input
@@ -194,7 +195,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='text'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.phone.showError}
-                    validationMessage={validatePhoneMessage}
+                    validationMessage={formState.phone.validationMessage}
                 />
                 <br />
                 <Input
@@ -205,7 +206,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='password'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.password.showError}
-                    validationMessage={validatePasswordMessage}
+                    validationMessage={formState.password.validationMessage}
                 />
                 <br />
                 <Input
@@ -216,7 +217,7 @@ export const Register = ({ switchAuthHandler }) => {
                     type='password'
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.passwordConfir.showError}
-                    validationMessage={validateConfirPasswordMessage}
+                    validationMessage={formState.passwordConfir.validationMessage}
                 />
                 <br />
                 <button onClick={handleRegister} disabled={isSubmitButtonDisable}>

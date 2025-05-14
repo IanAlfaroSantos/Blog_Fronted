@@ -7,23 +7,45 @@
 }
 
 .login-container {
-    background: rgb(255, 255, 255, 0.4);
-    width: 500px;
+    background: rgba(255, 255, 255, 0.5);
+    width: 60vh;
+    height: 60vh;
+    overflow-y: auto;
     margin: 0 auto;
-    border: 50px solid transparent;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    height: auto;
+    justify-content: flex-start;
     box-shadow: 10px 10px 10px 10px #000000;
     padding: 25px;
     color: black;
+    scrollbar-width: none;
 }
 
 .register-container {
-    height: 500px;
+    background: rgba(255, 255, 255, 0.5);
+    width: 60vh;
+    height: 80vh;
+    overflow-y: auto;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 10px 10px 10px 10px #000000;
+    padding: 25px;
+    color: black;
+    scrollbar-width: none;
+}
+
+.login-container::-webkit-scrollbar {
+    display: none;
+}
+
+.register-container::-webkit-scrollbar {
+    display: none;
 }
 
 .auth-form {
@@ -121,6 +143,10 @@
     border-color: red;
 }
 
-.img1 {
-    src: "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+.user-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
 }
