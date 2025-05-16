@@ -1,34 +1,57 @@
 import { useState, useEffect } from "react";
 import { getUserById, updateUser } from "../../services";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export const useUserSettings = () => {
-
-    const [userSettings, setUserSettings] = useState();
+    const [userSettings, setUserSettings] = useState({
+        name: '',
+        surname: '',
+        username: '',
+        email: '',
+        phone: '',
+        currentPassword: '',
+        password: ''
+    });
+    const [isFetching, setIsFetching] = useState(true);
+    const navigate = useNavigate();
 
     const fetchUserSettings = async () => {
-        const response = await getUserById();
+        setIsFetching(true);
+        try {
+            const response = await getUserById();
 
-        if (response.error) {
-            return Swal.fire({
+            if (response.error) {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: response.error || 'Ocurrió un error al obtener la data del usuario'
+                });
+            }
+
+            setUserSettings({
+                name: response.user.name,
+                surname: response.user.surname,
+                username: response.user.username,
+                email: response.user.email,
+                phone: response.user.phone,
+                currentPassword: '',
+                password: ''
+            });
+        } catch (error) {
+            const backendError = error.response?.data;
+
+            Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: response.e?.response?.data || 'Ocurrio un error al obtener la data del usuario'
-            })
+                text: backendError?.error || backendError?.msg || 'Hubo un error al intentar obtener la información del usuario'
+            });
+        } finally {
+            setIsFetching(false);
         }
+    };
 
-        setUserSettings({
-            name: response.data.name,
-            surname: response.data.surname,
-            username: response.data.username,
-            email: response.data.email,
-            phone: response.data.phone,
-            currentPassword: '',
-            password: ''
-        })
-    }
-
-    const saveSettings = async (data) => {
+    const saveSettings = async (user) => {
         const confirm = await Swal.fire({
             icon: 'question',
             title: '¿Está seguro?',
@@ -36,51 +59,61 @@ export const useUserSettings = () => {
             showCancelButton: true,
             confirmButtonText: 'Sí, actualizar',
             cancelButtonText: 'Cancelar'
-        })
+        });
 
         if (!confirm.isConfirmed) return;
 
         const payload = {
-            name: data.name,
-            surname: data.surname,
-            username: data.username,
-            phone: data.phone
+            name: user.name,
+            surname: user.surname,
+            username: user.username,
+            phone: user.phone
         };
 
-        if (data.password && data.currentPassword) {
-            payload.password = data.password;
-            payload.currentPassword = data.currentPassword;
+        if (user.password && user.currentPassword) {
+            payload.password = user.password;
+            payload.currentPassword = user.currentPassword;
         }
 
-        const response = await updateUser(payload);
+        try {
+            const response = await updateUser(payload);
 
-        if (response.error) {
-            return Swal.fire({
+            if (response.error) {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: response.error || 'Ocurrió un error al actualizar la información del usuario'
+                });
+            }
+
+            await Swal.fire({
+                icon: 'success',
+                title: '¡Usuario Actualizado!',
+                text: 'Tu información se actualizó exitosamente',
+                timer: 3000,
+                showConfirmButton: false
+            });
+
+            navigate('/');
+        } catch (error) {
+            const backendError = error.response?.data;
+
+            Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: response.e?.response?.data || 'Ocurrio un error al actualizar la informacion del usuario'
-            })
+                text: backendError?.error || backendError?.msg || 'Hubo un problema al guardar la información del usuario'
+            });
         }
-
-        await Swal.fire({
-            icon: 'success',
-            title: '¡Usuario Actualizado!',
-            text: 'Tu información se actualizo exitosamente',
-            timer: 3000,
-            showConfirmButton: false
-        });
-
-        setUserSettings(response.updateUser);
-    }
+    };
 
     useEffect(() => {
         fetchUserSettings();
     }, []);
 
-    return ({
-        isFetching: !userSettings,
+    return {
+        isFetching,
         userSettings,
         setUserSettings,
         saveSettings
-    })
+    };
 }

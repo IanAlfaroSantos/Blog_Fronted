@@ -29,13 +29,12 @@
 }
 
 .nav-logo-container {
-    width: 30px;
+    width: 45px;
     margin-left: 10px;
 }
 
 .nav-button {
-    font-size: 18px;
-    margin-left: 20px;
+    margin-left: 110px;
     margin-right: 20px;
     color: #d2d2dd;
     cursor: pointer;

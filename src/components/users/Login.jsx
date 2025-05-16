@@ -5,8 +5,9 @@ import {
     validatePassword
 } from '../../shared/validators';
 import { useLogin } from "../../shared/hooks";
-import { FaUserTie } from "react-icons/fa";
 import videoLogin from "../../assets/vid/FondoLogin.mp4";
+import { Link } from "react-router-dom";
+import { FaUserTie } from 'react-icons/fa';
 import "../../index.css";
 
 export const Login = ({ switchAuthHandler }) => {
@@ -78,8 +79,10 @@ export const Login = ({ switchAuthHandler }) => {
                     <source src={videoLogin} type="video/mp4" />
                 </video>
             </div>
+            <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
             <form className="auth-form">
-                <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
+                <h2>Login</h2>
+                <br />
                 <Input
                     field='usernameOrEmail'
                     label='Email or Username'
@@ -89,11 +92,13 @@ export const Login = ({ switchAuthHandler }) => {
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.usernameOrEmail.showError}
                     validationMessage={formState.usernameOrEmail.validationMessage}
+                    icon={FaUserTie}
                 />
                 <br />
                 <Input
                     field='password'
                     label='Password'
+                    placeholder='Click el candado para mostrar'
                     value={formState.password.value}
                     onChangeHandler={handleInputValueChange}
                     type='password'
@@ -109,6 +114,10 @@ export const Login = ({ switchAuthHandler }) => {
             <span onClick={switchAuthHandler} className="auth-form-switch-label">
                 Don't have an account? Sign up
             </span>
+            <br />
+            <Link to="/" className="auth-form-switch-label">
+                Continue without account
+            </Link>
         </div>
     )
 }

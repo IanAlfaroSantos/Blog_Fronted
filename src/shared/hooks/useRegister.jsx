@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 export const useRegister = () => {
 
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -13,31 +13,30 @@ export const useRegister = () => {
 
         setIsLoading(true);
 
-        const response = await registerRequest({ name, surname, username, email, phone, password });
+        try {
+            await registerRequest({ name, surname, username, email, phone, password });
 
-        setIsLoading(false);
+            await Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso',
+                text: 'Usuario registrado exitosamente!!',
+                timer: 3000,
+                showConfirmButton: false
+            });
 
-        if (response.error) {
-            return Swal.fire({
+            navigate('/');
+
+        } catch (error) {
+            const backendError = error.response?.data;
+
+            Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: response.error?.response?.data || 'Ocurrio un error al registrar, intenta de nuevo'
+                text: backendError?.error || backendError?.msg || 'Ocurrió un error inesperado. Por favor, intenta de nuevo',
             });
+        } finally {
+            setIsLoading(false);
         }
-
-        const { userDetails } = response.data;
-
-        localStorage.setItem('user', JSON.stringify(userDetails));
-
-        await Swal.fire({
-            icon: 'success',
-            title: 'Registro exitoso',
-            text: 'Usuario registrado exitosamente!!',
-            timer: 3000,
-            showConfirmButton: false
-        });
-
-        navigate('/');
     }
 
     return {

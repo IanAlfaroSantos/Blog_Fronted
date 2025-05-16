@@ -9,7 +9,7 @@
 .login-container {
     background: rgba(255, 255, 255, 0.5);
     width: 60vh;
-    height: 60vh;
+    height: 80vh;
     overflow-y: auto;
     margin: 0 auto;
     border-radius: 5px;
@@ -110,6 +110,7 @@
     transition: 0.3s;
     cursor: pointer;
     padding-top: 10px;
+    text-decoration: none;
 }
 
 .auth-form-switch-label:hover {
@@ -149,4 +150,56 @@
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 20px;
+}
+
+.h6-container {
+    background-color: red;
+    width: 400px;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon input {
+    padding-right: 2rem;
+    flex: 1;
+}
+
+.input-icon {
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    cursor: pointer;
+    color: rgb(255, 255, 255, 0.8);
+}
+
+.input-icon:hover {
+    color: #000;
+}
+
+.user-settings-form .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user-settings-form .input-with-icon input {
+    padding-right: 2rem;
+    flex: 1;
+}
+
+.user-settings-form .input-icon {
+    font-size: 20px;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    cursor: pointer;
+    color: rgb(255, 255, 255, 0.8);
+}
+
+.user-settings-form .input-icon:hover {
+    color: #000;
 }

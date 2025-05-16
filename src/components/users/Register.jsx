@@ -10,9 +10,12 @@ import {
     validateConfirPassword
 } from '../../shared/validators';
 import { useRegister } from '../../shared/hooks';
-import { FaUserTie } from "react-icons/fa";
 import videoRegister from "../../assets/vid/FondoRegister.mp4";
 import '../../index.css';
+import { FaUserTie } from 'react-icons/fa';
+import { FaPhoneVolume } from "react-icons/fa6";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import { MdOutgoingMail } from "react-icons/md";
 
 export const Register = ({ switchAuthHandler }) => {
 
@@ -142,6 +145,7 @@ export const Register = ({ switchAuthHandler }) => {
             </div>
             <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
             <form className="auth-form">
+                <h2>Register</h2>
                 <br />
                 <Input
                     field='name'
@@ -152,6 +156,7 @@ export const Register = ({ switchAuthHandler }) => {
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.name.showError}
                     validationMessage={formState.name.validationMessage}
+                    icon={MdOutlineDriveFileRenameOutline}
                 />
                 <br />
                 <Input
@@ -163,6 +168,7 @@ export const Register = ({ switchAuthHandler }) => {
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.surname.showError}
                     validationMessage={formState.surname.validationMessage}
+                    icon={MdOutlineDriveFileRenameOutline}
                 />
                 <br />
                 <Input
@@ -174,6 +180,7 @@ export const Register = ({ switchAuthHandler }) => {
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.username.showError}
                     validationMessage={formState.username.validationMessage}
+                    icon={FaUserTie}
                 />
                 <br />
                 <Input
@@ -185,6 +192,7 @@ export const Register = ({ switchAuthHandler }) => {
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.email.showError}
                     validationMessage={formState.email.validationMessage}
+                    icon={MdOutgoingMail}
                 />
                 <br />
                 <Input
@@ -196,11 +204,13 @@ export const Register = ({ switchAuthHandler }) => {
                     onBlurHandler={handleInputValidationOnBlur}
                     showErrorMessage={formState.phone.showError}
                     validationMessage={formState.phone.validationMessage}
+                    icon={FaPhoneVolume}
                 />
                 <br />
                 <Input
                     field='password'
                     label='Password'
+                    placeholder='Click el candado para mostrar'
                     value={formState.password.value}
                     onChangeHandler={handleInputValueChange}
                     type='password'
@@ -212,6 +222,7 @@ export const Register = ({ switchAuthHandler }) => {
                 <Input
                     field='passwordConfir'
                     label='Password Confirmation'
+                    placeholder='Click el candado para mostrar'
                     value={formState.passwordConfir.value}
                     onChangeHandler={handleInputValueChange}
                     type='password'

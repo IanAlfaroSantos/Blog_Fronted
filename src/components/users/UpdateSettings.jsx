@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     validateName,
     validateSurname,
@@ -6,7 +6,12 @@ import {
     validatePhone,
     validatePassword
 } from "../../shared/validators";
+import { useUserSettings } from "../../shared/hooks";
 import { Input } from "../Input";
+import { FaUserTie } from 'react-icons/fa';
+import { FaPhoneVolume } from "react-icons/fa6";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import '../../index.css';
 
 const inputs = [
     {
@@ -47,39 +52,77 @@ const inputs = [
     }
 ]
 
-export const UserSettings = ({ settings, saveSettings }) => {
+export const UserSettings = () => {
+    const { userSettings = {}, saveSettings, isFetching } = useUserSettings();
     const [formState, setFormState] = useState({
         name: {
-            isValid: validateName(settings.name).isValid,
+            isValid: true,
             showError: false,
-            value: settings.name
+            value: ''
         },
         surname: {
-            isValid: validateSurname(settings.surname).isValid,
+            isValid: true,
             showError: false,
-            value: settings.surname
+            value: ''
         },
         username: {
-            isValid: validateUsername(settings.username).isValid,
+            isValid: true,
             showError: false,
-            value: settings.username
+            value: ''
         },
         phone: {
-            isValid: validatePhone(settings.phone).isValid,
+            isValid: true,
             showError: false,
-            value: settings.phone
+            value: ''
         },
         currentPassword: {
-            isValid: validatePassword(settings.currentPassword || '').isValid,
+            isValid: true,
             showError: false,
-            value: settings.currentPassword || ''
+            value: ''
         },
         password: {
-            isValid: validatePassword(settings.password || '').isValid,
+            isValid: true,
             showError: false,
-            value: settings.password || ''
-        },
+            value: ''
+        }
     });
+
+    useEffect(() => {
+        if (userSettings) {
+            setFormState({
+                name: {
+                    isValid: validateName(userSettings.name).isValid,
+                    showError: false,
+                    value: userSettings.name
+                },
+                surname: {
+                    isValid: validateSurname(userSettings.surname).isValid,
+                    showError: false,
+                    value: userSettings.surname
+                },
+                username: {
+                    isValid: validateUsername(userSettings.username).isValid,
+                    showError: false,
+                    value: userSettings.username
+                },
+                phone: {
+                    isValid: validatePhone(userSettings.phone).isValid,
+                    showError: false,
+                    value: userSettings.phone
+                },
+                currentPassword: {
+                    isValid: validatePassword(userSettings.currentPassword || '').isValid,
+                    showError: false,
+                    value: ''
+                },
+                password: {
+                    isValid: validatePassword(userSettings.password || '').isValid,
+                    showError: false,
+                    value: ''
+                }
+            });
+        }
+    }, [userSettings]);
 
     const handleInputValueChange = (value, field) => {
         setFormState((prevState) => ({
@@ -92,29 +135,10 @@ export const UserSettings = ({ settings, saveSettings }) => {
     }
 
     const handleInputValidationOnBlur = (value, field) => {
-        let result = { isValid: false, message: '' };
-        switch (field) {
-            case 'name':
-                result = validateName(value);
-                break;
-            case 'surname':
-                result = validateSurname(value);
-                break;
-            case 'username':
-                result = validateUsername(value);
-                break;
-            case 'phone':
-                result = validatePhone(value);
-                break;
-            case 'currentPassword':
-                result = validatePassword(value);
-                break;
-            case 'password':
-                result = validatePassword(value);
-                break;
-            default:
-                break;
-        }
+        const validator = inputs.find(input => input.field === field)?.validationMessage;
+        if (!validator) return;
+
+        const result = validator(value);
 
         setFormState((prevState) => ({
             ...prevState,
@@ -129,41 +153,116 @@ export const UserSettings = ({ settings, saveSettings }) => {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        saveSettings({
+
+        const updatedData = {
             name: formState.name.value,
             surname: formState.surname.value,
             username: formState.username.value,
             phone: formState.phone.value,
-            currentPassword: formState.currentPassword.value,
-            password: formState.password.value
-        });
+        };
+
+        if (formState.password.value || formState.currentPassword.value) {
+            updatedData.currentPassword = formState.currentPassword.value;
+            updatedData.password = formState.password.value;
+        }
+
+        saveSettings(updatedData);
     }
 
+    const isChangingPassword = formState.password.value || formState.currentPassword.value;
     const isSubmitButtonDisabled = !formState.name.isValid ||
         !formState.surname.isValid ||
         !formState.username.isValid ||
         !formState.phone.isValid ||
-        !formState.currentPassword.isValid ||
-        !formState.password.isValid;
+        (isChangingPassword && (!formState.currentPassword.isValid || !formState.password.isValid));
 
     return (
-        <form className="settings-form" onSubmit={handleFormSubmit}>
-            {inputs.map((input) => (
+        <div className="register-container">
+            <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
+            <form className="auth-form user-settings-form" autoComplete="on">
+                <h2>Update Your Profile</h2>
+                <h6 className="h6-container">Nota: si no quiere actualizar la contraseña, ingrese su contraseña actual y en la nueva ingrese la misma que la actual</h6>
+                <br />
                 <Input
-                    key={input.field}
-                    field={input.field}
-                    label={input.label}
-                    value={formState[input.field].value}
+                    field='name'
+                    label='Name'
+                    value={formState.name.value}
                     onChangeHandler={handleInputValueChange}
+                    type='text'
                     onBlurHandler={handleInputValidationOnBlur}
-                    showErrorMessage={formState[input.field].showError}
-                    validationMessage={formState[input.field].validationMessage}
-                    type={input.type}
+                    showErrorMessage={formState.name.showError}
+                    validationMessage={formState.name.validationMessage}
+                    autoComplete="name"
+                    icon={MdOutlineDriveFileRenameOutline}
                 />
-            ))}
-            <button type="submit" disabled={isSubmitButtonDisabled}>
-                Update
-            </button>
-        </form>
+                <br />
+                <Input
+                    field='surname'
+                    label='Surname'
+                    value={formState.surname.value}
+                    onChangeHandler={handleInputValueChange}
+                    type='text'
+                    onBlurHandler={handleInputValidationOnBlur}
+                    showErrorMessage={formState.surname.showError}
+                    validationMessage={formState.surname.validationMessage}
+                    autoComplete="surname"
+                    icon={MdOutlineDriveFileRenameOutline}
+                />
+                <br />
+                <Input
+                    field='username'
+                    label='Username'
+                    value={formState.username.value}
+                    onChangeHandler={handleInputValueChange}
+                    type='text'
+                    onBlurHandler={handleInputValidationOnBlur}
+                    showErrorMessage={formState.username.showError}
+                    validationMessage={formState.username.validationMessage}
+                    autoComplete="username"
+                    icon={FaUserTie}
+                />
+                <br />
+                <Input
+                    field='phone'
+                    label='Phone'
+                    value={formState.phone.value}
+                    onChangeHandler={handleInputValueChange}
+                    type='tel'
+                    onBlurHandler={handleInputValidationOnBlur}
+                    showErrorMessage={formState.phone.showError}
+                    validationMessage={formState.phone.validationMessage}
+                    autoComplete="phone"
+                    icon={FaPhoneVolume}
+                />
+                <br />
+                <Input
+                    field='currentPassword'
+                    label='Current Password'
+                    placeholder='Click el candado para mostrar'
+                    value={formState.currentPassword.value}
+                    onChangeHandler={handleInputValueChange}
+                    type='password'
+                    onBlurHandler={handleInputValidationOnBlur}
+                    showErrorMessage={formState.currentPassword.showError}
+                    validationMessage={formState.currentPassword.validationMessage}
+                />
+                <br />
+                <Input
+                    field='password'
+                    label='Password'
+                    placeholder='Click el candado para mostrar'
+                    value={formState.password.value}
+                    onChangeHandler={handleInputValueChange}
+                    type='password'
+                    onBlurHandler={handleInputValidationOnBlur}
+                    showErrorMessage={formState.password.showError}
+                    validationMessage={formState.password.validationMessage}
+                />
+                <br />
+                <button onClick={handleFormSubmit} disabled={isSubmitButtonDisabled}>
+                    Update
+                </button>
+            </form>
+        </div>
     )
 }

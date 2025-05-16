@@ -11,7 +11,7 @@ apiClient.interceptors.request.use(
 
         if (useUserDetails) {
             const token = JSON.parse(useUserDetails).token;
-            config.headers.Authorization = `Bearer ${ token }`;
+            config.headers['x-token'] = token;
         }
 
         return config;
@@ -22,45 +22,22 @@ apiClient.interceptors.request.use(
 )
 
 export const login = async (data) => {
-    try {
-        return await apiClient.post('users/login', data);
-    } catch (e) {
-        return {
-            error: true,
-            e
-        }
-    }
+    return await apiClient.post('users/login', data);
 }
 
 export const register = async (data) => {
-    try {
-        return await apiClient.post('users/register', data);
-    } catch (e) {
-        return {
-            error: true,
-            e
-        }
-    }
+    return await apiClient.post('users/register', data);
 }
 
 export const getUserById = async () => {
-    try {
-        return await apiClient.get('users/search');
-    } catch (e) {
-        return {
-            error: true,
-            e
-        }
-    }
+    const response = await apiClient.get('users/search');
+    return response.data;
 }
 
 export const updateUser = async (data) => {
-    try {
-        return await apiClient.put('users/', data);
-    } catch (e) {
-        return {
-            error: true,
-            e
-        }
-    }
+    return await apiClient.put('users/', data);
+}
+
+export const savePublication = async (data) => {
+    return await apiClient.post('publications/', data)
 }
