@@ -6,3 +6,7 @@ export * from './validatePhone';
 export * from './validatePassword';
 export * from './validateConfirPassword';
 export * from './validateUsernameOrEmail';
+export * from './validateTitle';
+export * from './validateContent';
+export * from './validateCourse';
+export * from './validateImageURL';

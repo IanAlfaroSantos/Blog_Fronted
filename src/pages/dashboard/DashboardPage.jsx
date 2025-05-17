@@ -1,6 +1,7 @@
 import { Navbar } from "../../components/navbars/Navbar";
 import videoDashboard from "../../assets/vid/FondoDashboard.mp4";
-import "./dashboardPage.css"
+import { PublicationList } from "../../components/publications/PublicationList.jsx";
+import "./dashboardPage.css";
 
 export const DashboardPages = () => {
     return (
@@ -11,6 +12,7 @@ export const DashboardPages = () => {
                 </video>
             </div>
             <Navbar />
+            <PublicationList />
         </div>
     )
 }

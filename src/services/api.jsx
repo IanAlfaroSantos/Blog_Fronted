@@ -41,3 +41,31 @@ export const updateUser = async (data) => {
 export const savePublication = async (data) => {
     return await apiClient.post('publications/', data)
 }
+
+export const getPublications = async () => {
+    const response = await apiClient.get('publications/');
+    return response.data;
+}
+
+export const getCourses = async () => {
+    const response = await apiClient.get('courses/');
+    return response.data;
+}
+
+export const getPublicationById = async (id) => {
+    const response = await apiClient.get(`publications/${id}`);
+    return response.data;
+}
+
+export const updatePublication = async (id, data) => {
+    return await apiClient.put(`publications/${id}`, data);
+}
+
+export const deletePublication = async (id, data) => {
+    return await apiClient.delete(`publications/${id}`, data);
+}
+
+export const getPublicationByCourse = async (courseName) => {
+    const response = await apiClient.get(`publications/course/${courseName}`);
+    return response.data;
+}
