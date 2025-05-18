@@ -41,6 +41,7 @@ export const PublicationSave = () => {
                 <div className="settings-container">
                     <br />
                     <br />
+                    <br />
                     <Publication courses={courses} />
                 </div>
                 <PrivateRoutes />

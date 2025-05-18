@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { getPublications, getCourses, deletePublication } from "../../services";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Comment } from "../comments/Comment.jsx";
 
 export const PublicationList = () => {
+    const [comentarioActivo, setComentarioActivo] = useState(null);
     const [publications, setPublications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [courses, setCourses] = useState([]);
@@ -61,6 +63,17 @@ export const PublicationList = () => {
 
     const handleDeletePublication = async (id) => {
         try {
+            const confirm = await Swal.fire({
+                icon: 'question',
+                title: '¿Está seguro?',
+                text: '¿Desea eliminar su publicación?',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            });
+
+            if (!confirm.isConfirmed) return;
+
             const response = await deletePublication(id, { estado: false });
 
             if (response && response.success) {
@@ -70,33 +83,36 @@ export const PublicationList = () => {
                     )
                 )
 
-                const backendError = error.response?.data;
-
+                const backendError = response?.error || response?.msg;
                 await Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: backendError?.error || backendError?.msg || 'Ocurrio un error inesperado. Por favor, intenta de nuevo'
+                    text: backendError || "Ocurrió un error inesperado. Por favor, intenta de nuevo"
                 });
+
             } else {
-                window.location.reload();
                 await Swal.fire({
                     icon: "success",
-                    title: "Pulicación compartida",
-                    text: "Se elimino la publicación exitosamente!!",
+                    title: "Publicación eliminada",
+                    text: "Se eliminó la publicación exitosamente!!",
                     timer: 3000,
                     showConfirmButton: false
-                })
+                });
+                window.location.reload();
             }
         } catch (error) {
             const backendError = error.response?.data;
-
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: backendError?.error || backendError?.msg || 'Ocurrio un error inesperado. Por favor, intenta de nuevo'
+                text: backendError?.error || backendError?.msg || 'Ocurrió un error inesperado. Por favor, intenta de nuevo'
             });
         }
-    }
+    };
+
+    const handleMostrarComentario = (idPublicacion) => {
+        setComentarioActivo(idPublicacion === comentarioActivo ? null : idPublicacion);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -131,7 +147,7 @@ export const PublicationList = () => {
                         <div className="publication-header">
                             <div className="user-avatar">
                                 <img
-                                    src="https://specials-images.forbesimg.com/imageserve/67bc8ceddfce63fdaf8b75f8/960x0.jpg"
+                                    src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
                                     alt="User Avatar"
                                 />
                             </div>
@@ -163,7 +179,7 @@ export const PublicationList = () => {
                                 <span>{publication.comment?.length || 0} Comments</span>
                             </div>
                             <div className="actions">
-                                <button>Comment</button>
+                                <button onClick={() => handleMostrarComentario(publication._id)}>Comment</button>
                                 <Link to={`/update-publication/${publication._id}`}>
                                     <button>Update</button>
                                 </Link>
@@ -174,6 +190,12 @@ export const PublicationList = () => {
                                 )}
                             </div>
                         </div>
+
+                        {comentarioActivo === publication._id && (
+                            <div className="comment-section">
+                                <Comment publicationId={publication._id} />
+                            </div>
+                        )}
                     </div>
                 ))
             )}

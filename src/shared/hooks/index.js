@@ -5,3 +5,5 @@ export { useUserDetails } from './useUserDetails';
 export { useUserSettings } from './useUserUpdate';
 export { usePublication } from './usePublication';
 export { useUpdatePublication } from './usePublicationUpdate';
+export { useComment } from './useComments';
+export { useCommentsByPublication } from './useGetComments';

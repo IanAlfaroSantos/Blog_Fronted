@@ -69,3 +69,20 @@ export const getPublicationByCourse = async (courseName) => {
     const response = await apiClient.get(`publications/course/${courseName}`);
     return response.data;
 }
+
+export const saveComments = async (id, data) => {
+    return await apiClient.post(`comments/${id}`, data);
+}
+
+export const getComments = async () => {
+    const response = await apiClient.get(`comments/`);
+    return response.data;
+}
+
+export const updateComment = async (id, data) => {
+    return await apiClient.put(`comments/${id}`, data);
+}
+
+export const deleteComment = async (id) => {
+    return await apiClient.delete(`comments/${id}`);
+}

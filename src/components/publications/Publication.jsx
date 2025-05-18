@@ -222,16 +222,18 @@ export const Publication = ({ courses }) => {
                 <div>
                     <label>
                         <input
+                            className="input-image"
                             type="radio"
                             name="imageSource"
                             value="file"
                             checked={!formState.isLinkSelected}
                             onChange={() => setFormState((prevState) => ({ ...prevState, isLinkSelected: false }))}
-                        />
+                            />
                         Upload Image
                     </label>
                     <label>
                         <input
+                            className="input-image1"
                             type="radio"
                             name="imageSource"
                             value="link"
@@ -244,6 +246,7 @@ export const Publication = ({ courses }) => {
                 {!formState.isLinkSelected ? (
                     <>
                         <input
+                            className="image-subida"
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}

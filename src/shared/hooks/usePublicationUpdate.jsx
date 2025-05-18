@@ -9,6 +9,17 @@ export const useUpdatePublication = () => {
     setIsLoading(true);
 
     try {
+      const confirm = await Swal.fire({
+        icon: 'question',
+        title: '¿Está seguro?',
+        text: '¿Desea actualizar su publicación?',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, actualizar',
+        cancelButtonText: 'Cancelar'
+      });
+
+      if (!confirm.isConfirmed) return;
+
       await updatePublicationRequest(id, { title, content, nameCourse, image });
 
       await Swal.fire({
@@ -23,8 +34,7 @@ export const useUpdatePublication = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text:
-          backendError?.error || backendError?.msg || "Ocurrió un error inesperado. Por favor, intenta de nuevo",
+        text: backendError?.error || backendError?.msg || "Ocurrió un error inesperado. Por favor, intenta de nuevo",
       });
     } finally {
       setIsLoading(false);
@@ -33,6 +43,6 @@ export const useUpdatePublication = () => {
 
   return {
     updatePublication,
-    isLoading,
+    isLoading
   }
 }

@@ -10,3 +10,4 @@ export * from './validateTitle';
 export * from './validateContent';
 export * from './validateCourse';
 export * from './validateImageURL';
+export * from './validateText';

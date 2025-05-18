@@ -203,3 +203,15 @@
 .user-settings-form .input-icon:hover {
     color: #000;
 }
+
+.auth-form .input-image {
+    transform: translateY(200%);
+}
+
+.auth-form .input-image1 {
+    transform: translateY(200%);
+}
+
+.auth-form .image-subida {
+    margin-top: 50px;
+}
