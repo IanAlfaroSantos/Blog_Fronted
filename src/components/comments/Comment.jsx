@@ -202,8 +202,8 @@ export const Comment = ({ publicationId }) => {
 
                                 {comment.user?._id === JSON.parse(localStorage.getItem("user"))?.uid && (
                                     <div className="comment-actions">
-                                        <button onClick={() => handleEdit(comment)} className="edit-btn">Editar</button>
-                                        <button onClick={() => handleDelete(comment._id)} className="delete-btn">Eliminar</button>
+                                        <button onClick={() => handleEdit(comment)} className="edit-btn">🖊️</button>
+                                        <button onClick={() => handleDelete(comment._id)} className="delete-btn">🗑️</button>
                                     </div>
                                 )}
                             </div>
