@@ -13,7 +13,7 @@ export const useCommentsByPublication = (publicationId) => {
                 const response = await getComments();
                 const allComments = response.comments || [];
                 const filteredComments = allComments.filter(
-                    comment => comment.publication._id === publicationId
+                    (comment) => comment.publication && comment.publication._id === publicationId
                 )
                 setComments(filteredComments);
             } catch (e) {

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaComment } from 'react-icons/fa';
-import { Input } from "../Input";
 import {
     validateText
 } from '../../shared/validators';

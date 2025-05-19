@@ -40,7 +40,7 @@ export const PublicationList = () => {
                     });
 
                     if (selectedCourse) {
-                        setPublications(dataWithoutEstado.filter((pub) => pub.course.name.toLowerCase() === selectedCourse.toLowerCase()));
+                        setPublications(dataWithoutEstado.filter((pub) => pub.course?.name?.toLowerCase() === selectedCourse.toLowerCase()));
                     } else {
                         setPublications(dataWithoutEstado);
                     }
