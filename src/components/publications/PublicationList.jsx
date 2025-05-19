@@ -158,7 +158,7 @@ export const PublicationList = () => {
                         </div>
 
                         <div className="publication-user-info">
-                            <span className="user-name">User: <strong>{publication.user.username}</strong></span>
+                            <span className="user-name">User: <strong>{publication.user?.username || 'Desconocido'}</strong></span>
                             <span className="publication-date">{publication.DateAndTime}</span>
                         </div>
 
