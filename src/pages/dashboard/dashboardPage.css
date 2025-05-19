@@ -40,16 +40,6 @@
     width: 100%;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 .dashboard-container {
     position: relative;
     width: 100%;
@@ -70,9 +60,9 @@
 }
 
 .publication-card {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(45, 45, 45, 0.8);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -96,12 +86,12 @@
     margin: 0;
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #ddd;
 }
 
 .publication-title p {
     margin: 5px 0;
-    color: #555;
+    color: #bbb;
     font-size: 14px;
 }
 
@@ -116,7 +106,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    color: #000000;
+    color: #ddd;
 }
 
 .actions button {
@@ -152,7 +142,7 @@
     justify-content: space-between;
     margin-top: 10px;
     font-size: 0.9em;
-    color: #555;
+    color: #bbb;
 }
 
 .user-name {
@@ -160,14 +150,14 @@
 }
 
 .publication-date {
-    color: #000000;
+    color: #ddd;
     font-style: italic;
 }
 
 .publication-course {
     margin-top: 15px;
     font-size: 1em;
-    color: #333;
+    color: #ddd;
     font-weight: bold;
 }
 
@@ -176,6 +166,8 @@
     justify-content: center;
     align-items: center;
     height: 300px;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .publication-image img.responsive-image {
@@ -196,7 +188,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translateX(45%)
+    transform: translateX(45%);
 }
 
 .filter-section h2 {
@@ -269,4 +261,158 @@
 .clear-filters:disabled {
     background-color: #bbb;
     cursor: not-allowed;
+}
+
+.comment-container {
+    transform: translateX(10%);
+    width: 80%;
+    padding: 20px;
+    background-color: #181818;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #444;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper .input-icon {
+    position: absolute;
+    right: 12px;
+    color: #0099ff;
+    font-size: 30px;
+    transition: color 0.3s ease;
+    transform: translate(2100%, 10%);
+    position: absolute;
+    left: 12px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 40px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #ddd;
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    background-color: #3a3a3a;
+}
+
+.error-message {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #ff4f4f;
+}
+
+.comment-submit-btn {
+    margin-top: 12px;
+    padding: 12px 24px;
+    background-color: #1d72b8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comment-submit-btn:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+    opacity: 0.2;
+}
+
+.comment-submit-btn:hover {
+    background-color: #176fa1;
+}
+
+.comments-list {
+    margin-top: 20px;
+    color: #ddd;
+}
+
+.comment-item {
+    padding: 15px;
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.comment-user {
+    font-weight: bold;
+    color: #fff;
+}
+
+.comment-date {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.comment-text {
+    font-size: 16px;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+.comment-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 15px;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #4e9af1;
+}
+
+.edit-btn:hover {
+    background-color: #3d87ca;
+}
+
+.delete-btn {
+    background-color: #f26a6a;
+}
+
+.delete-btn:hover {
+    background-color: #f04d4d;
 }

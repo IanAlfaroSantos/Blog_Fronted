@@ -10,7 +10,6 @@ import {
 } from "../../shared/validators";
 import { usePublication } from "../../shared/hooks";
 import { getPublications } from "../../services";
-import videoPublication from '../../assets/vid/FondoUpdateUser.mp4';
 import '../../index.css';
 
 export const Publication = ({ courses }) => {
@@ -166,11 +165,6 @@ export const Publication = ({ courses }) => {
 
     return (
         <div className="register-container">
-            <div className="video-background">
-                <video autoPlay loop muted playsInline>
-                    <source src={videoPublication} type="video/mp4" />
-                </video>
-            </div>
             <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
             <form className="auth-form">
                 <h2>Create Publication</h2>

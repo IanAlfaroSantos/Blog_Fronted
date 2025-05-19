@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { UpdatePublication } from "../../components/publications/PublicationUpdate"
-import videoUpdate from "../../assets/vid/FondoUpdateUser.mp4"
+import videoPublicationUpdate from "../../assets/vid/FondoPublicationUpdate.mp4"
 import PrivateRoutes from "../../components/PrivateRoutes"
 import { Navbar } from "../../components/navbars/Navbar"
 import { getCourses } from "../../services"
@@ -25,7 +25,7 @@ export const UpdatePublicationPage = () => {
         <div className="update-publication-page">
             <div className="video-background">
                 <video autoPlay loop muted playsInline>
-                    <source src={videoUpdate} type="video/mp4" />
+                    <source src={videoPublicationUpdate} type="video/mp4" />
                 </video>
             </div>
             <Navbar />

@@ -4,7 +4,6 @@ import { getPublicationById } from "../../services"
 import Swal from "sweetalert2"
 import { Input } from "../Input"
 import { useUpdatePublication } from "../../shared/hooks"
-import videoPublication from '../../assets/vid/FondoUpdateUser.mp4'
 import '../../index.css'
 
 export const UpdatePublication = ({ courses }) => {
@@ -146,11 +145,6 @@ export const UpdatePublication = ({ courses }) => {
 
   return (
     <div className="register-container">
-      <div className="video-background">
-        <video autoPlay loop muted playsInline>
-          <source src={videoPublication} type="video/mp4" />
-        </video>
-      </div>
       <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="user-image" alt="User Icon" />
       <form className="auth-form" onSubmit={handlePublicationUpdate}>
         <h2>Actualizar Publicación</h2>

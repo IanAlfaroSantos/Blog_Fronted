@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from "../../components/navbars/Navbar";
 import { Publication } from "../../components/publications/Publication";
-import videoUpdateUser from "../../assets/vid/FondoUpdateUser.mp4";
+import videoPublication from "../../assets/vid/FondoPublication.mp4";
 import "../dashboard/dashboardPage.css";
 import "../auth/authPage.css";
 import { getCourses } from '../../services';
@@ -34,7 +34,7 @@ export const PublicationSave = () => {
             <div className="dashboard-container">
                 <div className="video-background">
                     <video autoPlay loop muted playsInline>
-                        <source src={videoUpdateUser} type="video/mp4" />
+                        <source src={videoPublication} type="video/mp4" />
                     </video>
                 </div>
                 <Navbar />

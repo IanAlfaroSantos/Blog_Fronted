@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaComment } from 'react-icons/fa';
 import { Input } from "../Input";
 import {
     validateText
@@ -152,21 +153,34 @@ export const Comment = ({ publicationId }) => {
     }
 
     return (
-        <div>
+        <div className="comment-container">
             <form onSubmit={handleComment} className="comment-form">
-                <Input
-                    field='text'
-                    type="text"
-                    label="Comentario"
-                    placeholder="Escribe tu comentario..."
-                    value={formState.text.value}
-                    onChangeHandler={handleInputValueChange}
-                    onBlurHandler={handleInputValidationOnBlur}
-                    showErrorMessage={formState.text.showError}
-                    validationMessage={formState.text.validationMessage}
-                />
-
-                <button type="submit" disabled={isLoading || !formState.text.isValid}>
+                <div className="input-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center', backgroundColor: '#f1f1f1', borderRadius: '8px', padding: '10px', border: '1px solid #ddd', transition: 'all 0.3s ease' }}>
+                    <FaComment className="input-icon" size={30} />
+                    <input
+                        type="text"
+                        placeholder="Escribe tu comentario..."
+                        value={formState.text.value}
+                        onChange={(e) => handleInputValueChange(e.target.value, 'text')}
+                        onBlur={(e) => handleInputValidationOnBlur(e.target.value, 'text')}
+                        style={{
+                            width: '100%',
+                            paddingLeft: '35px',
+                            paddingRight: '12px',
+                            paddingTop: '10px',
+                            paddingBottom: '10px',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            color: '#333',
+                            backgroundColor: 'transparent',
+                            outline: 'none',
+                            transition: 'all 0.3s ease'
+                        }}
+                    />
+                </div>
+                {formState.text.showError && <span className="error-message">{formState.text.validationMessage}</span>}
+                <button type="submit" disabled={isLoading || !formState.text.isValid} className="comment-submit-btn">
                     {isLoading ? "Enviando..." : "Comentar"}
                 </button>
             </form>
@@ -180,13 +194,16 @@ export const Comment = ({ publicationId }) => {
                     ) : (
                         comments.map((comment) => (
                             <div key={comment._id} className="comment-item">
-                                <small>{(comment.Date)}</small>
-                                <p><strong>{comment.user?.username || "Anónimo"}:</strong> {comment.text}</p>
+                                <div className="comment-header">
+                                    <strong className="comment-user">{comment.user?.username || "Anónimo"}</strong>
+                                    <small className="comment-date">{comment.Date}</small>
+                                </div>
+                                <p className="comment-text">{comment.text}</p>
 
                                 {comment.user?._id === JSON.parse(localStorage.getItem("user"))?.uid && (
-                                    <div>
-                                        <button onClick={() => handleEdit(comment)}>Editar</button>
-                                        <button onClick={() => handleDelete(comment._id)}>Eliminar</button>
+                                    <div className="comment-actions">
+                                        <button onClick={() => handleEdit(comment)} className="edit-btn">Editar</button>
+                                        <button onClick={() => handleDelete(comment._id)} className="delete-btn">Eliminar</button>
                                     </div>
                                 )}
                             </div>

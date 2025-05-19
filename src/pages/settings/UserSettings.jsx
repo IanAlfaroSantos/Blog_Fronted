@@ -27,6 +27,7 @@ export const UserSettingsUpdate = () => {
                     { }
                     <br />
                     <br />
+                    <br />
                     <UserSettings
                         initialSettings={userSettings}
                         onSave={saveSettings}
