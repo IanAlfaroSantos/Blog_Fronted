@@ -179,13 +179,13 @@ export const PublicationList = () => {
                                 <span>{publication.comment?.length || 0} Comments</span>
                             </div>
                             <div className="actions">
-                                <button onClick={() => handleMostrarComentario(publication._id)}>Comment</button>
+                                <button className="btn-comment" onClick={() => handleMostrarComentario(publication._id)}>✉️</button>
                                 <Link to={`/update-publication/${publication._id}`}>
-                                    <button>Update</button>
+                                    <button className="btn-edit">🖊️</button>
                                 </Link>
                                 {publication.estado !== false && (
-                                    <button onClick={() => handleDeletePublication(publication._id)}>
-                                        Delete
+                                    <button className="btn-delete" onClick={() => handleDeletePublication(publication._id)}>
+                                        🗑️
                                     </button>
                                 )}
                             </div>
